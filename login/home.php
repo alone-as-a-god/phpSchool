@@ -1,7 +1,9 @@
 <?php
 require_once "config.php";  //Loads the php file once (so it wont execute the same queries twice)
     if($_SERVER["REQUEST_METHOD"] == "POST"){
-        if(!empty(trim($_POST["username"]))&& !empty(trim($_POST["password"]))){
+        $tempUsername = trim($_POST["username"]);
+        $tempPassword = trim($_POST["password"]);
+        if(!empty($tempUsername)&& !empty($tempPassword)){
             $sql = "SELECT * FROM users where username=?";
             $stmt = $conn->prepare($sql);
             $stmt->bind_param("s", $_POST["username"]);
@@ -11,11 +13,20 @@ require_once "config.php";  //Loads the php file once (so it wont execute the sa
                 $fetchedUsername = $result["username"];
                 $sql = "SELECT password FROM users where id=1 OR username='".$fetchedUsername."'";
                 $fetchedPass = $conn->query($sql);
-                if($fetchedPass){
-                    print_r($fetchedPass);
+                if(mysqli_num_rows($fetchedPass)===1){
+                    $newPass = $fetchedPass->fetch_assoc()["password"];
+                    if($tempPassword === $newPass){
+                        echo "login successful";
+                    }else{
+                        echo "wrong password";
+                    }
+                    
                 }else{
-                    die($fetchedUsername);
-            
+                    die("error");
+                }       
+                
+            }else{
+                echo "username not found";
             }
             //print_r($result);
             
@@ -24,7 +35,7 @@ require_once "config.php";  //Loads the php file once (so it wont execute the sa
             echo "please enter all the required fields";
         }
     }
-}
+
 ?>
  
 <!DOCTYPE html>

@@ -5,7 +5,7 @@
     }
     $sql = "CREATE DATABASE IF NOT EXISTS loginDB";
     if($conn->query($sql)=== True){
-        echo "Database loginDB works";
+        //echo "Database loginDB works";
         $conn = new mysqli("localhost","root","","loginDB");
     }
     $sql = "CREATE TABLE IF NOT EXISTS users(
@@ -14,7 +14,7 @@
         password VARCHAR(20) NOT NULL
         );";
     if($conn->query($sql)===True){
-        echo "Table users works";
+        //echo "Table users works";
     }else{
         echo "This shit broken lmaooooo " . $conn->error;
     }
