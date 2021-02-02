@@ -11,9 +11,9 @@ require_once "config.php";  //Loads the php file once (so it wont execute the sa
             $result = $stmt->get_result()->fetch_assoc();
             if($result!=null){
                 $fetchedUsername = $result["username"];
-                $sql = "SELECT password FROM users where id=1 OR username='".$fetchedUsername."'";
+                $sql = "SELECT password FROM users where username='".$fetchedUsername."'";
                 $fetchedPass = $conn->query($sql);
-                if(mysqli_num_rows($fetchedPass)===1){
+                if(mysqli_num_rows($fetchedPass)==1){
                     $newPass = $fetchedPass->fetch_assoc()["password"];
                     if($tempPassword === $newPass){
                         echo "login successful";
@@ -22,7 +22,7 @@ require_once "config.php";  //Loads the php file once (so it wont execute the sa
                     }
                     
                 }else{
-                    die("error");
+                    die("error".mysqli_num_rows($fetchedPass));
                 }       
                 
             }else{

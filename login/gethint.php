@@ -1,36 +1,15 @@
 <?php
+require_once "config.php";
 // Array with names
-$a[] = "Anna";
-$a[] = "Brittany";
-$a[] = "Cinderella";
-$a[] = "Diana";
-$a[] = "Eva";
-$a[] = "Fiona";
-$a[] = "Gunda";
-$a[] = "Hege";
-$a[] = "Inga";
-$a[] = "Johanna";
-$a[] = "Kitty";
-$a[] = "Linda";
-$a[] = "Nina";
-$a[] = "Ophelia";
-$a[] = "Petunia";
-$a[] = "Amanda";
-$a[] = "Raquel";
-$a[] = "Cindy";
-$a[] = "Doris";
-$a[] = "Eve";
-$a[] = "Evita";
-$a[] = "Sunniva";
-$a[] = "Tove";
-$a[] = "Unni";
-$a[] = "Violet";
-$a[] = "Liza";
-$a[] = "Elizabeth";
-$a[] = "Ellen";
-$a[] = "Wenche";
-$a[] = "Vicky";
 
+
+$sql ="SELECT password FROM users";
+$result = $conn->query($sql);
+$count = mysqli_num_rows($result);
+
+while($row = mysqli_fetch_array($result)){
+    $a[]=$row['password'];
+}
 // get the q parameter from URL
 $q = $_REQUEST["q"];
 

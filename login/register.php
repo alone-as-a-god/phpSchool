@@ -1,12 +1,25 @@
 <?php
-require_once "cofig.php";
+require_once "config.php";
     if($_SERVER["REQUEST_METHOD"] == "POST"){
         $tempUsername = trim($_POST["username"]);
         $tempPassword = trim($_POST["password"]);
         $confirmPassword = trim($_POST["confirm_password"]);
         if(!empty($tempUsername)&&!empty($tempPassword)&&!empty($confirmPassword)){
             if($tempPassword == $confirmPassword){
-                
+                $sql = "SELECT * FROM users where username=?";
+                $stmt = $conn->prepare($sql);
+                $stmt->bind_param("s", $tempUsername);
+                $stmt->execute();
+                $result = $stmt->get_result()->fetch_assoc();
+                if($result==null){
+                    $sql = "INSERT INTO users(username, password) values(?,?)";
+                    $stmt = $conn -> prepare($sql);
+                    $stmt->bind_param("ss", $tempUsername, $tempPassword);
+                    $stmt->execute();
+                    echo "user created successfully. You can now login";
+                }else{
+                    echo "that username is already taken lmao";
+                }
             }else{
                 echo "passwords dont match";
             }

@@ -1,0 +1,15 @@
+INSERT INTO users(username, password) VALUES("sparber","ahri");
+INSERT INTO users(username, password) VALUES("ritzwan","kebab");
+INSERT INTO users(username, password) VALUES("jonni","lost");
+INSERT INTO users(username, password) VALUES("julian","Widerstand");
+INSERT INTO users(username, password) VALUES("waschtl","Beste1");
+INSERT INTO users(username, password) VALUES("benni","node");
+INSERT INTO users(username, password) VALUES("simonn","salz");
+INSERT INTO users(username, password) VALUES("philipp","cursed");
+INSERT INTO users(username, password) VALUES("Feretti","bitcoin");
+INSERT INTO users(username, password) VALUES("penn","peso");
+INSERT INTO users(username, password) VALUES("daniele","italiano");
+INSERT INTO users(username, password) VALUES("daniel","drohne");
+INSERT INTO users(username, password) VALUES("mathias","meth");
+INSERT INTO users(username, password) VALUES("hannes","schreiamo");
+INSERT INTO users(username, password) VALUES("silas","habibi");
