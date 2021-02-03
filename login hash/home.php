@@ -15,11 +15,11 @@ require_once "config.php";  //Loads the php file once (so it wont execute the sa
                 $fetchedPass = $conn->query($sql);
                 if(mysqli_num_rows($fetchedPass)==1){
                     $newPass = $fetchedPass->fetch_assoc()["password"];
-                    if($tempPassword === $newPass){
+                    if(password_verify($tempPassword, $newPass)){
+                        
                         echo "login successful";
-                        header("Location: https://www.youtube.com/watch?v=nlLhw1mtCFA");
-                        exit();
                     }else{
+                        echo $tempPassword." ".$newPass;
                         echo "wrong password";
                     }
                     
@@ -50,23 +50,7 @@ require_once "config.php";  //Loads the php file once (so it wont execute the sa
         body{ font: 14px sans-serif; }
         .wrapper{ width: 350px; padding: 20px; }
     </style>
-    <script>
-    function showHint(str) {
-        if (str.length == 0) {
-            document.getElementById("txtHint").innerHTML = "";
-            return;
-        } else {
-            var xmlhttp = new XMLHttpRequest();
-            xmlhttp.onreadystatechange = function() {
-                if (this.readyState == 4 && this.status == 200) {
-                    document.getElementById("txtHint").innerHTML = this.responseText;
-                }
-            };
-            xmlhttp.open("GET", "gethint.php?q=" + str, true);
-            xmlhttp.send();
-        }
-    }
-</script>
+    
 </head>
 <body>
     <div class="wrapper">
@@ -79,7 +63,7 @@ require_once "config.php";  //Loads the php file once (so it wont execute the sa
             </div>    
             <div class="form-group">
                 <label>Password</label>
-                <input type="password" name="password" class="form-control" onkeyup="showHint(this.value)">
+                <input type="password" name="password" class="form-control">
                 <label id="txtHint">Suggestions: </label>
             </div>
             <div class="form-group">

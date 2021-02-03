@@ -1,6 +1,14 @@
 <?php
-require_once "config.php";  //Loads the php file once (so it wont execute the same queries twice)
-    if($_SERVER["REQUEST_METHOD"] == "POST"){
+require_once "postconfig.php";  //Loads the php file once (so it wont execute the same queries twice)
+session_start();
+    if(isset($_SESSION['username'])){
+        echo "login successful";
+        $_SESSION["username"] = $fetchedUsername;
+        echo "login successful";
+        header("Location: newpost.php");
+        exit();
+    }else{
+        if($_SERVER["REQUEST_METHOD"] == "POST"){
         $tempUsername = trim($_POST["username"]);
         $tempPassword = trim($_POST["password"]);
         if(!empty($tempUsername)&& !empty($tempPassword)){
@@ -16,8 +24,9 @@ require_once "config.php";  //Loads the php file once (so it wont execute the sa
                 if(mysqli_num_rows($fetchedPass)==1){
                     $newPass = $fetchedPass->fetch_assoc()["password"];
                     if($tempPassword === $newPass){
+                        $_SESSION["username"] = $fetchedUsername;
                         echo "login successful";
-                        header("Location: https://www.youtube.com/watch?v=nlLhw1mtCFA");
+                        header("Location: newpost.php");
                         exit();
                     }else{
                         echo "wrong password";
@@ -37,6 +46,8 @@ require_once "config.php";  //Loads the php file once (so it wont execute the sa
             echo "please enter all the required fields";
         }
     }
+    }
+    
 
 ?>
  
@@ -50,23 +61,7 @@ require_once "config.php";  //Loads the php file once (so it wont execute the sa
         body{ font: 14px sans-serif; }
         .wrapper{ width: 350px; padding: 20px; }
     </style>
-    <script>
-    function showHint(str) {
-        if (str.length == 0) {
-            document.getElementById("txtHint").innerHTML = "";
-            return;
-        } else {
-            var xmlhttp = new XMLHttpRequest();
-            xmlhttp.onreadystatechange = function() {
-                if (this.readyState == 4 && this.status == 200) {
-                    document.getElementById("txtHint").innerHTML = this.responseText;
-                }
-            };
-            xmlhttp.open("GET", "gethint.php?q=" + str, true);
-            xmlhttp.send();
-        }
-    }
-</script>
+    
 </head>
 <body>
     <div class="wrapper">
@@ -79,7 +74,7 @@ require_once "config.php";  //Loads the php file once (so it wont execute the sa
             </div>    
             <div class="form-group">
                 <label>Password</label>
-                <input type="password" name="password" class="form-control" onkeyup="showHint(this.value)">
+                <input type="password" name="password" class="form-control">
                 <label id="txtHint">Suggestions: </label>
             </div>
             <div class="form-group">
