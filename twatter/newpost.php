@@ -10,7 +10,7 @@ session_start();
                 header("Location: home.php");
                 exit();
             }else{
-                $sql = "INSERT INTO posts(author, content) VALUES (?,?)";
+                $sql = "INSERT INTO posts(author, content, time) VALUES (?,?,now())";
                 $stmt = $conn->prepare($sql);
                 $stmt->bind_param("ss",$username, $content);
                 $stmt->execute();

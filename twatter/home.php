@@ -26,7 +26,7 @@ session_start();
                     if($tempPassword === $newPass){
                         $_SESSION["username"] = $fetchedUsername;
                         echo "login successful";
-                        header("Location: newpost.php");
+                        header("Location: dashboard.php");
                         exit();
                     }else{
                         echo "wrong password";

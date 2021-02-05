@@ -23,7 +23,20 @@
         author VARCHAR(20) NOT NULL,
         content VARCHAR(280) NOT NULL,
         likes INT NOT NULL DEFAULT 0,
+        time timestamp NOT NULL,
         FOREIGN KEY (author) REFERENCES users(username) ON DELETE CASCADE
+        );";
+    if($conn->query($sql)===True){
+        //echo "Table users works";
+    }else{
+        echo "This shit broken lmaooooo " . $conn->error;
+    }
+    $sql = "CREATE TABLE IF NOT EXISTS likes(
+        userid INT NOT NULL,
+        postid INT NOT NULL,
+        FOREIGN KEY(userid) REFERENCES users(id),
+        FOREIGN KEY(postid) REFERENCES posts(id),
+        PRIMARY KEY(postid, userid)
         );";
     if($conn->query($sql)===True){
         //echo "Table users works";
